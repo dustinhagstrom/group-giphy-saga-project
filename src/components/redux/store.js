@@ -17,10 +17,9 @@ const giphyGeneralPurposeReducer = (state = [], action) => {
 // }
 
 //! Generator functions below
-function* setGifs(action) {
+function* setTrendingGifs(action) {
     const arrayOfUrls = [];
-    console.log("action in setGifs, sent from saga:", action);
-    console.log("action.payload.endpoint", action.payload.endpoint);
+    console.log("action in setTrendingGifs, sent from saga:", action);
 
     try {
         const giphyUrlArray = yield axios.get("/api/trending");
@@ -34,10 +33,20 @@ function* setGifs(action) {
     }
 }
 
+function* setSearchGifs(action){
+    console.log('action in setSearchGifs sent from Saga', action);
+
+    // try{
+    //     const giphyUrlArray = 
+    // }
+}
+
 // implement the root saga
 function* rootSaga() {
     // call generator functions to dispatch redux actions
-    yield takeLatest("GET_GIPHY_API_CALL", setGifs);
+    yield takeLatest("GET_TRENDING_GIPHYS", setTrendingGifs);
+    
+    yield takeLatest("GET_SEARCH_GIPHYS", setSearchGifs);
 }
 
 // implement saga middleware obj

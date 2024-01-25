@@ -12,23 +12,21 @@ export default function GiphyList() {
 
     // set the initial giphy endpoint to trending
     //! when the user submits some query parameters for a search, we can then change the endpoint to search
-    const [endpoint, setEndpoint] = useState("trending");
 
     // have an api call to the database for Favorites list
 
     // have an api call to Giphy for the Search list
 
-    const makeGiphyCall = () => {
-        console.log("makeGiphyCall called");
+    const makeTrendingGiphyCall = () => {
+        console.log("makeTrendingGiphyCall called");
         
         dispatch({
-            type: "GET_GIPHY_API_CALL",
-            payload: { endpoint },
+            type: "GET_TRENDING_GIPHYS",
         });
-    };
+    }; 
 
     useEffect(() => {
-        makeGiphyCall();
+        makeTrendingGiphyCall();
     }, []);
 
     return (
