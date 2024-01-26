@@ -15,7 +15,7 @@ export default function Search() {
     };
 
     const makeSearchGiphyCall = () => {
-        console.log("makeSearchGiphyCall called");
+        // console.log("makeSearchGiphyCall called");
 
         // replace all spaces with the url code for space chars
         let urlSafeString = searchString.replaceAll(" ", "%20");
@@ -28,7 +28,7 @@ export default function Search() {
     };
 
     const navigateToFavorites = () => {
-        console.log("navigateToFavorites called");
+        // console.log("navigateToFavorites called");
 
         history.push("/favorites");
     }

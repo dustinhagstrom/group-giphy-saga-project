@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
     // console.log("hit the trending route");
-    // console.log("api Key:", process.env.GIPHY_API_KEY);
 
     const arrayOfUrls = [];
     axios
@@ -34,7 +33,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    console.log("hit the search route, req.body:", req.body);
+    // console.log("hit the search route, req.body:", req.body);
 
     const arrayOfUrls = [];
 

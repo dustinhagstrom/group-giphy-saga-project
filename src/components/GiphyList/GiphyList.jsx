@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import GiphyComponent from "../GiphyComponent/GiphyComponent";
 
 export default function GiphyList() {
     const giphyTrendingReducer = useSelector((state) => state.giphyTrendingReducer);
@@ -30,7 +31,8 @@ export default function GiphyList() {
                 {giphyTrendingReducer.map((url, i) => {
                     return (
                         <li key={i}>
-                            <img src={url} />
+                            {/* <img src={url} /> */}
+                            <GiphyComponent imageUrl={url} />
                         </li>
                     );
                 })}
