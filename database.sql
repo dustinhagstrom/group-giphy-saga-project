@@ -13,8 +13,7 @@ CREATE TABLE "categories" (
 -- Giphy url table:  
 CREATE TABLE "giphy" (
 "id" SERIAL PRIMARY KEY,
-"url" VARCHAR (1000) NOT NULL,
-"category_id" INT REFERENCES "categories"("id"));
+"url" VARCHAR (1000) NOT NULL);
 
 -- Favorites table:
 CREATE TABLE "favorites" (
@@ -54,5 +53,9 @@ ORDER BY "favorites"."id" DESC LIMIT 10;
 --UPDATE "favorites" SET "category_id" = $1 WHERE "giphy_id" = $2;
 UPDATE "favorites" SET "category_id" = 4 WHERE "giphy_id" = 1;
 
-
-INSERT INTO "giphy" ("url") VALUES ($1) RETURNING "id";
+--Make a new favorite and new giphy at the same time
+WITH "inserted_giphy" AS (
+INSERT INTO "giphy" ("url") VALUES ($1) RETURNING "id"
+)
+INSERT INTO "favorites" ("giphy_id")
+SELECT "id" FROM "inserted_giphy";
