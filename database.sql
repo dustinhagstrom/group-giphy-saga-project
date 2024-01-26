@@ -53,3 +53,6 @@ ORDER BY "favorites"."id" DESC LIMIT 10;
 --Test update favorite category
 --UPDATE "favorites" SET "category_id" = $1 WHERE "giphy_id" = $2;
 UPDATE "favorites" SET "category_id" = 4 WHERE "giphy_id" = 1;
+
+
+INSERT INTO "giphy" ("url") VALUES ($1) RETURNING "id";

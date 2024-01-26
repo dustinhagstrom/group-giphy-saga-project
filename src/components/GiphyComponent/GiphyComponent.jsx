@@ -5,46 +5,23 @@ import Button from "@mui/material/Button";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch } from "react-redux";
 
-export default function GiphyComponent({ giphyObj, displayFavorite }) {
-    const [toggleCategories, setToggleCategories] = useState(true);
+export default function GiphyComponent({ imageUrl }) {
 
     const dispatch = useDispatch();
-
-    const toggleImgAndCat = () => {
-        setToggleCategories(!toggleCategories);
-    };
 
     function makeFavorite() {
         dispatch({
             type: "MAKE_FAVORITE",
-            payload: { id: giphyObj.id },
+            payload: { url: imageUrl },
         });
     }
 
     return (
         <>
-            {toggleCategories ? (
-                <>
-                    {displayFavorite ? (
-                        <IconButton onClick={makeFavorite}>
-                            <img src={giphyObj.url} />
-                            <FavoriteIcon />
-                        </IconButton>
-                    ) : (
-                        <img src={giphyObj.url} />
-                    )}
-                    <div>
-                        <Button variant="text" onClick={toggleImgAndCat}>
-                            Apply Category
-                        </Button>
-                    </div>
-                </>
-            ) : (
-                <CategoryList
-                    giphyObj={giphyObj}
-                    toggleImgAndCat={toggleImgAndCat}
-                />
-            )}
+                    <IconButton onClick={makeFavorite}>
+                        <img src={imageUrl} />
+                        <FavoriteIcon />
+                    </IconButton>
         </>
     );
 }

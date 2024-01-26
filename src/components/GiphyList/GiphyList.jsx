@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import GiphyComponent from "../GiphyComponent/GiphyComponent";
+import GiphyComponent from "../GiphyComponent/GiphyComponent.jsx";
 
 export default function GiphyList() {
     const giphyTrendingReducer = useSelector((state) => state.giphyTrendingReducer);
@@ -15,9 +15,9 @@ export default function GiphyList() {
     }; 
 
     //! Commented out to preserve request limits for free api calls
-    // useEffect(() => {
-    //     makeTrendingGiphyCall();
-    // }, []);
+    useEffect(() => {
+        makeTrendingGiphyCall();
+    }, []);
 
     return (
         <>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Button from "@mui/material/Button";
-import GiphyComponent from "../GiphyComponent/GiphyComponent";
+import GiphyFavComponent from "../GiphyFavComponent/GiphyFavComponent";
 
 export default function GiphyFavList() {
 
@@ -35,7 +35,7 @@ export default function GiphyFavList() {
                 {giphyFavoritesReducer.map((giphyObj) => {
                     return (
                         <li key={giphyObj.id}>
-                            <GiphyComponent giphyObj={giphyObj} displayFavorite={false}/>
+                            <GiphyFavComponent giphyObj={giphyObj} displayFavorite={false}/>
                         </li>
                     );
                 })}

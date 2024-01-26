@@ -20,34 +20,34 @@ router.get("/", (req, res) => {
 
 // add a new favorite
 router.post("/", (req, res) => {
-    const id = req.body.id
-    const queryText = 
-    `INSERT INTO "favorites" ("giphy_id") VALUES ($1);`
-    pool.query(queryText, [id])
+    const url = req.body.url;
+
+    const queryText = `WITH "inserted_giphy" AS (INSERT INTO "giphy" ("url") VALUES ($1) RETURNING "id") INSERT INTO "favorites" ("giphy_id") SELECT "id" FROM "inserted_giphy";`;
+    pool.query(queryText, [url])
         .then((databaseRes) => {
             res.sendStatus(201);
         })
-    .catch((error) => {
-        console.log(`Error on query ${error}`);
-        res.sendStatus(500);
-    })
+        .catch((error) => {
+            console.log(`Error on query ${error}`);
+            res.sendStatus(500);
+        });
 });
 
 // update a favorite's associated category
 router.put("/:giphy_id/:category_id", (req, res) => {
-
-    const queryText = 'UPDATE "favorites" SET "category_id" = $1 WHERE "giphy_id" = $2;';
+    const queryText =
+        'UPDATE "favorites" SET "category_id" = $1 WHERE "giphy_id" = $2;';
     const queryParams = [req.params.category_id, req.params.giphy_id];
 
     pool.query(queryText, queryParams)
-    .then((databaseRes) => {
-        console.log("databaseRes update category on fav:", databaseRes);
-        res.sendStatus(200);
-    })
-    .catch((error) => {
-        console.log(`Error on query ${error}`);
-        res.sendStatus(500);
-    });
+        .then((databaseRes) => {
+            console.log("databaseRes update category on fav:", databaseRes);
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log(`Error on query ${error}`);
+            res.sendStatus(500);
+        });
 });
 
 // delete a favorite
