@@ -2,32 +2,32 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function GiphyList() {
-    const giphyTrendingReducer = useSelector((state) => state.giphyTrendingReducer);
+export default function GiphyFavList() {
+    const giphyFavoritesReducer = useSelector((state) => state.giphyFavoritesReducer);
 
     const dispatch = useDispatch();
 
     // have an api call to the database for Favorites list
 
     // Func called to load page with trending gifs on load in use effect.
-    const makeTrendingGiphyCall = () => {
+    const makeFavoriteGiphyCall = () => {
         // console.log("makeTrendingGiphyCall called");
         
         dispatch({
-            type: "GET_TRENDING_GIPHYS",
+            type: "GET_FAVORITE_GIPHYS",
         });
     }; 
 
-    //! Commented out to preserve request limits for free api calls
-    // useEffect(() => {
-    //     makeTrendingGiphyCall();
-    // }, []);
+    //! Comment out to preserve request limits for free api calls
+    useEffect(() => {
+        makeTrendingGiphyCall();
+    }, []);
 
     return (
         <>
-            <h1>Hi From GiphyList</h1>
+            <h1>Hi From GiphyFavList</h1>
             <ul>
-                {giphyTrendingReducer.map((url, i) => {
+                {giphyFavoritesReducer.map((url, i) => {
                     return (
                         <li key={i}>
                             <img src={url} />

@@ -4,7 +4,7 @@ import logger from "redux-logger";
 import axios from "axios";
 import { takeLatest, put } from "redux-saga/effects";
 
-const giphyGeneralPurposeReducer = (state = [], action) => {
+const giphyTrendingReducer = (state = [], action) => {
     // add some action.type === something;
     if (action.type === "SET_GIFS") {
         return action.payload;
@@ -12,9 +12,12 @@ const giphyGeneralPurposeReducer = (state = [], action) => {
     return state;
 };
 
-// const giphyFavoritesReducer = () => {
-
-// }
+const giphyFavoritesReducer = (state = [], action) => {
+    if (action.type === "ADD_FAV") {
+        return action.payload;
+    }
+    return state;
+};
 
 //! Generator functions below
 function* getTrendingGifs(action) {
@@ -34,10 +37,10 @@ function* getTrendingGifs(action) {
     }
 }
 
-function* getSearchGifs(action){
-    console.log('action in setSearchGifs sent from Saga', action);
+function* getSearchGifs(action) {
+    console.log("action in setSearchGifs sent from Saga", action);
 
-    try{
+    try {
         const giphyUrlArray = yield axios.post("/api/giphy", action.payload);
         console.log("giphyUrlArray in getSearchGifs:", giphyUrlArray);
         yield put({
@@ -50,12 +53,25 @@ function* getSearchGifs(action){
     }
 }
 
+function* getFavoriteGifs(action) {
+
+    try {
+        // put some logic in here!
+        console.log("put some logic in this generator function for favorite giphys.");
+    } catch (err) {
+        console.log("we got ourselves an error up in this house.");
+        console.error(err);
+    }
+ }
+
 // implement the root saga
 function* rootSaga() {
     // call generator functions to dispatch redux actions
     yield takeLatest("GET_TRENDING_GIPHYS", getTrendingGifs);
-    
+
     yield takeLatest("GET_SEARCH_GIPHYS", getSearchGifs);
+
+    yield takeLatest("GET_FAVORITE_GIPHYS", getFavoriteGifs);
 }
 
 // implement saga middleware obj
@@ -63,7 +79,8 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
     combineReducers({
-        giphyGeneralPurposeReducer,
+        giphyTrendingReducer,
+        giphyFavoritesReducer,
     }),
     applyMiddleware(sagaMiddleware, logger)
 );
