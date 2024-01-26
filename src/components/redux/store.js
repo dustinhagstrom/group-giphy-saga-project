@@ -17,12 +17,13 @@ const giphyGeneralPurposeReducer = (state = [], action) => {
 // }
 
 //! Generator functions below
-function* setTrendingGifs(action) {
+function* getTrendingGifs(action) {
     const arrayOfUrls = [];
-    console.log("action in setTrendingGifs, sent from saga:", action);
+    // console.log("action in setTrendingGifs, sent from saga:", action);
 
     try {
-        const giphyUrlArray = yield axios.get("/api/trending");
+        const giphyUrlArray = yield axios.get("/api/giphy");
+        console.log("giphy array:", giphyUrlArray);
         yield put({
             type: "SET_GIFS",
             payload: giphyUrlArray.data,
@@ -33,20 +34,28 @@ function* setTrendingGifs(action) {
     }
 }
 
-function* setSearchGifs(action){
+function* getSearchGifs(action){
     console.log('action in setSearchGifs sent from Saga', action);
 
-    // try{
-    //     const giphyUrlArray = 
-    // }
+    try{
+        const giphyUrlArray = yield axios.post("/api/giphy", action.payload);
+        console.log("giphyUrlArray in getSearchGifs:", giphyUrlArray);
+        yield put({
+            type: "SET_GIFS",
+            payload: giphyUrlArray.data,
+        });
+    } catch (err) {
+        console.log("we got ourselves an error up in this house.");
+        console.error(err);
+    }
 }
 
 // implement the root saga
 function* rootSaga() {
     // call generator functions to dispatch redux actions
-    yield takeLatest("GET_TRENDING_GIPHYS", setTrendingGifs);
+    yield takeLatest("GET_TRENDING_GIPHYS", getTrendingGifs);
     
-    yield takeLatest("GET_SEARCH_GIPHYS", setSearchGifs);
+    yield takeLatest("GET_SEARCH_GIPHYS", getSearchGifs);
 }
 
 // implement saga middleware obj

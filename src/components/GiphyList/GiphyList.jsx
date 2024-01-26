@@ -10,24 +10,21 @@ export default function GiphyList() {
 
     const dispatch = useDispatch();
 
-    // set the initial giphy endpoint to trending
-    //! when the user submits some query parameters for a search, we can then change the endpoint to search
-
     // have an api call to the database for Favorites list
 
-    // have an api call to Giphy for the Search list
-
+    // Func called to load page with trending gifs on load in use effect.
     const makeTrendingGiphyCall = () => {
-        console.log("makeTrendingGiphyCall called");
+        // console.log("makeTrendingGiphyCall called");
         
         dispatch({
             type: "GET_TRENDING_GIPHYS",
         });
     }; 
 
-    useEffect(() => {
-        makeTrendingGiphyCall();
-    }, []);
+    //! Commented out to preserve request limits for free api calls
+    // useEffect(() => {
+    //     makeTrendingGiphyCall();
+    // }, []);
 
     return (
         <>
