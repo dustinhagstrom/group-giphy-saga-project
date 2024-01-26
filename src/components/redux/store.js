@@ -105,6 +105,21 @@ function* updateCategory(action) {
     }
 }
 
+function* setFavorite(action) {
+
+    try {
+        yield axios.post('/api/favorites', action.payload)
+        yield put ({
+            type: "GET_FAVORITE_GIPHYS",
+            getFavoriteGifs
+        })
+
+    } catch (err) {
+        console.log("we got ourselves an error up in this house.");
+        console.error(err);
+    }
+}
+
 // implement the root saga
 function* rootSaga() {
     // call generator functions to dispatch redux actions
@@ -117,6 +132,8 @@ function* rootSaga() {
     yield takeLatest("GET_CATEGORIES", getCategories);
 
     yield takeLatest("UPDATE_CATEGORY", updateCategory);
+
+    yield takeLatest("MAKE_FAVORITE", setFavorite);
 }
 
 // implement saga middleware obj

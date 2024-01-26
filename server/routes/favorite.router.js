@@ -22,7 +22,17 @@ router.get("/", (req, res) => {
 
 // add a new favorite
 router.post("/", (req, res) => {
-    res.sendStatus(201);
+    const id = req.body.id
+    const queryText = 
+    `INSERT INTO "favorites" ("giphy_id") VALUES ($1);`
+    pool.query(queryText, [id])
+        .then((databaseRes) => {
+            res.sendStatus(201);
+        })
+    .catch((error) => {
+        console.log(`Error on query ${error}`);
+        res.sendStatus(500);
+    })
 });
 
 // update a favorite's associated category
