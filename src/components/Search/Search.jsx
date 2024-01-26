@@ -8,15 +8,11 @@ export default function Search() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // gonna use a String.replaceAll(" ", "%20"); to replace all spaces in the input
-
     const handleInputOnChange = (e) => {
         setSearchString(e.target.value);
     };
 
     const makeSearchGiphyCall = () => {
-        // console.log("makeSearchGiphyCall called");
-
         // replace all spaces with the url code for space chars
         let urlSafeString = searchString.replaceAll(" ", "%20");
 
@@ -28,8 +24,6 @@ export default function Search() {
     };
 
     const navigateToFavorites = () => {
-        // console.log("navigateToFavorites called");
-
         history.push("/favorites");
     }
 

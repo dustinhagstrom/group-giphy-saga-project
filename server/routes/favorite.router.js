@@ -5,13 +5,11 @@ const router = express.Router();
 
 // return all favorite images
 router.get("/", (req, res) => {
-    // console.log("hit the favorite route");
     const queryText =
         'SELECT "favorites"."id", "giphy"."url" FROM "favorites" JOIN "giphy" ON "favorites"."giphy_id" = "giphy"."id" ORDER BY "favorites"."id" DESC LIMIT 10;';
 
     pool.query(queryText)
         .then((databaseRes) => {
-            // console.log("db cat results:", databaseRes.rows);
             res.status(200).send(databaseRes.rows);
         })
         .catch((error) => {
@@ -37,10 +35,7 @@ router.post("/", (req, res) => {
 
 // update a favorite's associated category
 router.put("/:giphy_id/:category_id", (req, res) => {
-    // req.body should contain a category_id to add to this favorite image
 
-    console.log("req.params.giphy_id:", req.params.giphy_id);
-    console.log("req.params.category_id:", req.params.category_id);
     const queryText = 'UPDATE "favorites" SET "category_id" = $1 WHERE "giphy_id" = $2;';
     const queryParams = [req.params.category_id, req.params.giphy_id];
 

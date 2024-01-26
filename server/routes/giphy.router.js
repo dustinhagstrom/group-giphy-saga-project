@@ -14,12 +14,8 @@ router.get("/", (req, res) => {
         .then((giphyRes) => {
 
             let giphyObjsData = giphyRes.data.data;
-            // console.log("giphyObjsData:", giphyObjsData);
-
             giphyObjsData.forEach((giphyObj) => {
-                // we want to store in redux state
                 let gifUrl = giphyObj.images.fixed_width.url;
-                // push this url to the array of urls in store
                 arrayOfUrls.push(gifUrl);
             });
 
@@ -33,8 +29,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    // console.log("hit the search route, req.body:", req.body);
-
     const arrayOfUrls = [];
 
     axios
@@ -43,12 +37,9 @@ router.post("/", (req, res) => {
         )
         .then((giphyRes) => {
             let giphyObjsData = giphyRes.data.data;
-            // console.log("giphyObjsData:", giphyObjsData);
 
             giphyObjsData.forEach((giphyObj) => {
-                // we want to store in redux state
                 let gifUrl = giphyObj.images.fixed_width.url;
-                // push this url to the array of urls in store
                 arrayOfUrls.push(gifUrl);
             });
 

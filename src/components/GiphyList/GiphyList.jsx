@@ -8,12 +8,7 @@ export default function GiphyList() {
 
     const dispatch = useDispatch();
 
-    // have an api call to the database for Favorites list
-
-    // Func called to load page with trending gifs on load in use effect.
     const makeTrendingGiphyCall = () => {
-        // console.log("makeTrendingGiphyCall called");
-        
         dispatch({
             type: "GET_TRENDING_GIPHYS",
         });
@@ -31,7 +26,6 @@ export default function GiphyList() {
                 {giphyTrendingReducer.map((url, i) => {
                     return (
                         <li key={i}>
-                            {/* <img src={url} /> */}
                             <GiphyComponent imageUrl={url} />
                         </li>
                     );

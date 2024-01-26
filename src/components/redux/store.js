@@ -5,7 +5,6 @@ import axios from "axios";
 import { takeLatest, put } from "redux-saga/effects";
 
 const giphyTrendingReducer = (state = [], action) => {
-    // add some action.type === something;
     if (action.type === "SET_GIFS") {
         return action.payload;
     }
@@ -14,7 +13,6 @@ const giphyTrendingReducer = (state = [], action) => {
 
 const giphyFavoritesReducer = (state = [], action) => {
     if (action.type === "SET_FAVORITES") {
-        // console.log("action in fav reducer:", action);
         return action.payload;
     }
     return state;
@@ -30,11 +28,9 @@ const categoryReducer = (state = [], action) => {
 //! Generator functions below
 function* getTrendingGifs(action) {
     const arrayOfUrls = [];
-    // console.log("action in setTrendingGifs, sent from saga:", action);
 
     try {
         const giphyUrlArray = yield axios.get("/api/giphy");
-        // console.log("giphy array:", giphyUrlArray);
         yield put({
             type: "SET_GIFS",
             payload: giphyUrlArray.data,
@@ -46,11 +42,9 @@ function* getTrendingGifs(action) {
 }
 
 function* getSearchGifs(action) {
-    // console.log("action in setSearchGifs sent from Saga", action);
 
     try {
         const giphyUrlArray = yield axios.post("/api/giphy", action.payload);
-        // console.log("giphyUrlArray in getSearchGifs:", giphyUrlArray);
         yield put({
             type: "SET_GIFS",
             payload: giphyUrlArray.data,
@@ -65,7 +59,6 @@ function* getFavoriteGifs(action) {
 
     try {
         const favoriteArray = yield axios.get("/api/favorites");
-        // console.log("favoriteArray in getFavoriteGifs:", favoriteArray);
         yield put({
             type: "SET_FAVORITES",
             payload: favoriteArray.data,

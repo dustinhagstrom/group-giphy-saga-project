@@ -1,38 +1,41 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import Button from "@mui/material/Button";
 import GiphyComponent from "../GiphyComponent/GiphyComponent";
 
 export default function GiphyFavList() {
+
+
     const giphyFavoritesReducer = useSelector((state) => state.giphyFavoritesReducer);
-
     const dispatch = useDispatch();
+    const history = useHistory();
 
-    // Func called to load page with trending gifs on load in use effect.
     const makeFavoriteGiphyCall = () => {
-        // console.log("makeTrendingGiphyCall called");
-        
         dispatch({
             type: "GET_FAVORITE_GIPHYS",
         });
     }; 
 
+    const navigateHome = () => {
+        history.push("/");
+    }
+
     //! Comment out to preserve request limits for free api calls
     useEffect(() => {
         makeFavoriteGiphyCall();
     }, []);
-// console.log("giphyFavoritesReducer:", giphyFavoritesReducer);
+
     return (
         <>
             <h1>Hi From GiphyFavList</h1>
+            <Button variant="text" onClick={navigateHome}>Home</Button>
             <ul>
                 {giphyFavoritesReducer.map((giphyObj) => {
-                    // console.log("giphyFavoritesReducer:", giphyFavoritesReducer);
-                    // console.log("urlObj:", giphyObj);
                     return (
                         <li key={giphyObj.id}>
-                            {/* <img src={urlObj.url} /> */}
-                            <GiphyComponent giphyObj={giphyObj} />
+                            <GiphyComponent giphyObj={giphyObj} displayFavorite={false}/>
                         </li>
                     );
                 })}
